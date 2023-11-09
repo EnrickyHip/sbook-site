@@ -4,7 +4,7 @@ import { LoginTemplate } from '@/templates/LoginTemplate';
 export default function Login() {
   return (
     <>
-      <SbookHead title="Login - Simtro Asset Care" />
+      <SbookHead title="Login - Sbook" />
       <LoginTemplate />
     </>
   );

@@ -1,30 +1,37 @@
-import { Heading } from "@/components/UI/Heading";
-import { Loading } from "@/components/UI/Loading";
-import { FormContainer, LoginContainer, LoginForm, LoginInputContainer, ShowPasswordButton } from "./styled";
-import { SbookButton } from "@/components/UI/SbookButton";
-import { MdOutlineVisibility, MdOutlineVisibilityOff } from 'react-icons/md'
-import { FiLogIn } from 'react-icons/fi'
-import { useState } from "react";
-import { useRouter } from "next/router";
-import { Input } from "@/components/UI/Input";
-import { Label } from "@/components/UI/Label";
-import { PasswordInput } from "@/components/UI/PasswordInput";
+import { Heading } from '@/components/UI/Heading';
+import { Loading } from '@/components/UI/Loading';
+import { FormContainer, LoginContainer, LoginForm, LoginInputContainer, ShowPasswordButton } from './styled';
+import { SbookButton } from '@/components/UI/SbookButton';
+import { MdOutlineVisibility, MdOutlineVisibilityOff } from 'react-icons/md';
+import { FiLogIn } from 'react-icons/fi';
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { Input } from '@/components/UI/Input';
+import { Label } from '@/components/UI/Label';
+import { PasswordInput } from '@/components/UI/PasswordInput';
+import { ErrorMessage } from '@/components/UI/ErrorMessage';
+import { LoginResponse } from '@/domain/responses/LoginResponse';
+import { requestApi } from '@/data/requestApi';
+import { useSession } from '@/Context/Session';
 
 export function LoginTemplate() {
   const [passwordHidden, setPasswordHidden] = useState(true);
   const [user, setUser] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
 
-  // const session = useSession();
+  const session = useSession();
   const router = useRouter();
 
   const validateForm = () => {
     if (!user.trim()) {
+      setErrorMessage('Por favor, digite seu username.');
       return false;
     }
 
     if (!password.trim()) {
+      setErrorMessage('Por favor, digite sua senha.');
       return false;
     }
 
@@ -32,37 +39,41 @@ export function LoginTemplate() {
   };
 
   const login = async () => {
-    // if (!validateForm()) {
-    //   return;
-    // }
+    if (!validateForm()) {
+      return;
+    }
 
-    // setLoading(true);
-    // const response = await requestApi<LoginResponse>('/login', {
-    //   method: 'POST',
-    //   body: { login: user, captcha: token, password: password },
-    // });
-    // setLoading(false);
+    setLoading(true);
+    const response = await requestApi<LoginResponse>('/user/login/', {
+      method: 'POST',
+      body: { username: user, password: password },
+    });
 
-    // if (!response) {
-    //   return;
-    // }
+    setLoading(false);
+    if (!response) {
+      return;
+    }
 
-    // if (!response.user) {
+    if (!response.user) {
+      setErrorMessage('Username ou senha inválidos');
+      return;
+    }
 
-    //   return;
-    // }
-
-    // session.login(response.user);
-    // router.push('/');
+    session.login(response.user);
+    router.push('/');
   };
 
   return (
     <LoginContainer>
-      <Heading as="h1" size={40}>SBook</Heading>
+      <Heading as="h1" size={40}>
+        SBook
+      </Heading>
       {loading && <Loading />}
       <FormContainer onSubmit={(event) => event.preventDefault()}>
         <LoginForm>
-          <Heading as="h2" size={28}>Login</Heading>
+          <Heading as="h2" size={28}>
+            Login
+          </Heading>
 
           <LoginInputContainer>
             <Label htmlFor="login">Usuário</Label>
@@ -94,6 +105,8 @@ export function LoginTemplate() {
               </ShowPasswordButton>
             </PasswordInput>
           </LoginInputContainer>
+
+          <ErrorMessage size={15}>{errorMessage}</ErrorMessage>
 
           <SbookButton title="Logar no sistema" onClick={login}>
             Entrar

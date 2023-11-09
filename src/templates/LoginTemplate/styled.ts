@@ -1,3 +1,4 @@
+import { ErrorMessage } from '@/components/UI/ErrorMessage';
 import { StyledHeading } from '@/components/UI/Heading/styled';
 import { SbookButton } from '@/components/UI/SbookButton';
 import styled, { css } from 'styled-components';
@@ -32,8 +33,12 @@ export const FormContainer = styled.main`
   margin-top: 40px;
 
   ${SbookButton} {
-    margin-top: 25px;
     width: 100%;
+  }
+
+  ${ErrorMessage} {
+    margin-bottom: 25px;
+    margin-top: 5px;
   }
 
   ${StyledHeading} {

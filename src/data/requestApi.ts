@@ -21,6 +21,8 @@ export const requestApi = async <ResponseType extends FetchReponse>(
   try {
     const headers = {
       ...options.headers,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
       Cookie: '',
     };
 
@@ -34,7 +36,7 @@ export const requestApi = async <ResponseType extends FetchReponse>(
     const response = await fetch(url, {
       method: options.method,
       body: body,
-      // credentials: 'include',
+      credentials: 'include',
       headers: headers,
     });
 

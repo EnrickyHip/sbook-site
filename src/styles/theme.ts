@@ -17,8 +17,7 @@ const globalColors = {
   gray12: 'rgb(21, 21, 24)',
   deepBlack: 'rgb(0, 0, 0)',
   error: '#CF5959',
-
-}
+};
 
 export const lightTheme = {
   borderRadius: '8px',
