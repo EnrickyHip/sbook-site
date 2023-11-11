@@ -59,7 +59,11 @@ export function SessionLoader({ children }: SessionLoaderProps) {
     return () => setMounted(false);
   }, [session.updateRequested, loadSession]);
 
-  if (loading) return <Loading />;
   if (sessionError) return <GenericError />;
-  return <>{children}</>;
+  return (
+    <>
+      {loading && <Loading />}
+      {children}
+    </>
+  );
 }

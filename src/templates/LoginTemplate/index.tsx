@@ -49,7 +49,6 @@ export function LoginTemplate() {
       body: { username: user, password: password },
     });
 
-    setLoading(false);
     if (!response) {
       return;
     }
@@ -64,56 +63,59 @@ export function LoginTemplate() {
   };
 
   return (
-    <LoginContainer>
-      <Heading as="h1" size={40}>
-        SBook
-      </Heading>
+    <>
       {loading && <Loading />}
-      <FormContainer onSubmit={(event) => event.preventDefault()}>
-        <LoginForm>
-          <Heading as="h2" size={28}>
-            Login
-          </Heading>
+      <LoginContainer>
+        <Heading as="h1" size={40}>
+          SBook
+        </Heading>
+        {loading && <Loading />}
+        <FormContainer onSubmit={(event) => event.preventDefault()}>
+          <LoginForm>
+            <Heading as="h2" size={28}>
+              Login
+            </Heading>
 
-          <LoginInputContainer>
-            <Label htmlFor="login">Usuário</Label>
-            <Input
-              id="login"
-              value={user}
-              onChange={({ target }) => setUser(target.value)}
-              type="text"
-              placeholder="Informe seu CPF ou Matrícula"
-            />
-          </LoginInputContainer>
-
-          <LoginInputContainer>
-            <Label htmlFor="password">Senha</Label>
-            <PasswordInput>
+            <LoginInputContainer>
+              <Label htmlFor="login">Usuário</Label>
               <Input
-                id="password"
-                value={password}
-                onChange={({ target }) => setPassword(target.value)}
-                type={passwordHidden ? 'password' : 'type'}
-                placeholder="Informe sua Senha"
+                id="login"
+                value={user}
+                onChange={({ target }) => setUser(target.value)}
+                type="text"
+                placeholder="Informe seu CPF ou Matrícula"
               />
-              <ShowPasswordButton
-                title="Mostrar senha"
-                role="button"
-                onClick={() => setPasswordHidden(!passwordHidden)}
-              >
-                {passwordHidden ? <MdOutlineVisibilityOff size={25} /> : <MdOutlineVisibility size={25} />}
-              </ShowPasswordButton>
-            </PasswordInput>
-          </LoginInputContainer>
+            </LoginInputContainer>
 
-          <ErrorMessage size={15}>{errorMessage}</ErrorMessage>
+            <LoginInputContainer>
+              <Label htmlFor="password">Senha</Label>
+              <PasswordInput>
+                <Input
+                  id="password"
+                  value={password}
+                  onChange={({ target }) => setPassword(target.value)}
+                  type={passwordHidden ? 'password' : 'type'}
+                  placeholder="Informe sua Senha"
+                />
+                <ShowPasswordButton
+                  title="Mostrar senha"
+                  role="button"
+                  onClick={() => setPasswordHidden(!passwordHidden)}
+                >
+                  {passwordHidden ? <MdOutlineVisibilityOff size={25} /> : <MdOutlineVisibility size={25} />}
+                </ShowPasswordButton>
+              </PasswordInput>
+            </LoginInputContainer>
 
-          <SbookButton title="Logar no sistema" onClick={login}>
-            Entrar
-            <FiLogIn size={22} />
-          </SbookButton>
-        </LoginForm>
-      </FormContainer>
-    </LoginContainer>
+            <ErrorMessage size={15}>{errorMessage}</ErrorMessage>
+
+            <SbookButton title="Logar no sistema" onClick={login}>
+              Entrar
+              <FiLogIn size={22} />
+            </SbookButton>
+          </LoginForm>
+        </FormContainer>
+      </LoginContainer>
+    </>
   );
 }
