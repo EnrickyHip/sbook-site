@@ -1,3 +1,5 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import { SessionContextProvider } from '@/Context/Session';
 import { ThemeContextProvider } from '@/Context/ThemeContext';
 import { GlobalStyles } from '@/styles/globalStyles';

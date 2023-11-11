@@ -21,14 +21,13 @@ export const requestApi = async <ResponseType extends FetchReponse>(
   try {
     const headers = {
       ...options.headers,
-      Accept: 'application/json',
       'Content-Type': 'application/json',
       Cookie: '',
     };
 
     const body = options.body instanceof FormData ? options.body : JSON.stringify(options.body);
 
-    if (context && headers) {
+    if (context) {
       headers.Cookie = getCookiesFromContext(context);
     }
 

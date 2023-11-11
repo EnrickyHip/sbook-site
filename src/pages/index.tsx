@@ -1,4 +1,5 @@
 import { useSession } from '@/Context/Session';
+import { Layout } from '@/components/Layout';
 import { Loading } from '@/components/UI/Loading';
 
 export default function Home() {
@@ -8,5 +9,5 @@ export default function Home() {
     return <Loading />;
   }
 
-  return <h1>{session.user.username}</h1>;
+  return <Layout>olá {session.user.username}!</Layout>;
 }
