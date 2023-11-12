@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
 import { useEffect } from 'react';
 import { GenericError } from '@/components/GenericError';
-import { CenteredDiv } from '@/components/UI/CenteredDiv';
+import { CenteredDiv, CenteredScreenDiv } from '@/components/UI/CenteredDiv';
 import { Paragraph } from '@/components/UI/Paragraph';
 import { Loading } from '@/components/UI/Loading';
 import { useSession } from '@/Context/Session';
@@ -17,12 +17,16 @@ export default function Logout({ error }: LogoutProps) {
   const router = useRouter();
 
   useEffect(() => {
-    if (!error) {
-      session.logout();
-    }
-
-    router.push('/');
+    if (error) return;
+    session.logout();
+    router.push('/login');
   }, []);
+
+  if (error) {
+    <CenteredScreenDiv gap={20}>
+      <Paragraph size={25}>Houve um erro ao deslogar usuário. Recarregue a página e tente novamente.</Paragraph>
+    </CenteredScreenDiv>;
+  }
 
   return <Loading />;
 }

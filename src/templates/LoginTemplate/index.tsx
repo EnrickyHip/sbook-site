@@ -1,6 +1,6 @@
 import { Heading } from '@/components/UI/Heading';
 import { Loading } from '@/components/UI/Loading';
-import { FormContainer, LoginContainer, LoginForm, LoginInputContainer, ShowPasswordButton } from './styled';
+import { FormContainer, FormFooter, LoginContainer, LoginForm, LoginInputContainer } from './styled';
 import { SbookButton } from '@/components/UI/SbookButton';
 import { MdOutlineVisibility, MdOutlineVisibilityOff } from 'react-icons/md';
 import { FiLogIn } from 'react-icons/fi';
@@ -13,6 +13,8 @@ import { ErrorMessage } from '@/components/UI/ErrorMessage';
 import { LoginResponse } from '@/domain/responses/LoginResponse';
 import { requestApi } from '@/data/requestApi';
 import { useSession } from '@/Context/Session';
+import { ShowPasswordButton } from '@/components/UI/ShowPasswordButton';
+import Link from 'next/link';
 
 export function LoginTemplate() {
   const [passwordHidden, setPasswordHidden] = useState(true);
@@ -113,6 +115,11 @@ export function LoginTemplate() {
               Entrar
               <FiLogIn size={22} />
             </SbookButton>
+            <FormFooter>
+              <Link title="Não possui uma conta? Clique aqui para se registrar" href="/register">
+                Não possui uma conta? Clique aqui para se registrar
+              </Link>
+            </FormFooter>
           </LoginForm>
         </FormContainer>
       </LoginContainer>

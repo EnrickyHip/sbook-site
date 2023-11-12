@@ -1,11 +1,11 @@
 import { ErrorMessage } from '@/components/UI/ErrorMessage';
 import { StyledHeading } from '@/components/UI/Heading/styled';
 import { SbookButton } from '@/components/UI/SbookButton';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 // se precisar utilizar estes componentes novamente em algum lugar do sistema criar um componente para isto seria interessante
 
-export const LoginContainer = styled.div`
+export const RegisterContainer = styled.div`
   margin-top: 40px;
   display: flex;
   flex-direction: column;
@@ -30,24 +30,11 @@ export const FormContainer = styled.main`
   }
 `;
 
-export const LoginForm = styled.form`
-  width: 30vw;
+export const RegisterForm = styled.form`
+  width: 40vw;
+  margin-bottom: 50px;
 `;
 
 export const LoginInputContainer = styled.div`
   margin-top: 0.5rem;
-`;
-
-export const FormFooter = styled.div`
-  display: flex;
-  justify-content: right;
-  margin-top: 5px;
-  margin-bottom: 15px;
-  font-size: 13px;
-
-  a {
-    ${({ theme }) => css`
-      color: ${theme.colors.text.primary};
-    `}
-  }
 `;
