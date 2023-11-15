@@ -1,7 +1,9 @@
 import { FetchReponse } from '@/domain/responses/FetchResponse';
+import { getCookie } from '@/utils/getCookie';
 import { getCookiesFromContext } from '@/utils/getCookiesFromContext';
 import { GetServerSidePropsContext } from 'next';
 
+type Headers = Record<string, string>;
 type RequestMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 type RequestBody = {
   [key: string]: unknown;
@@ -10,7 +12,7 @@ type RequestBody = {
 type RequestOptions = {
   method: RequestMethod;
   body?: RequestBody | FormData;
-  headers?: HeadersInit;
+  headers?: Headers;
 };
 
 export const requestApi = async <ResponseType extends FetchReponse>(
@@ -19,16 +21,19 @@ export const requestApi = async <ResponseType extends FetchReponse>(
   context?: GetServerSidePropsContext,
 ): Promise<ResponseType | null> => {
   try {
-    const headers = {
+    const headers: Headers = {
       ...options.headers,
       'Content-Type': 'application/json',
-      Cookie: '',
     };
 
     const body = options.body instanceof FormData ? options.body : JSON.stringify(options.body);
 
     if (context) {
-      headers.Cookie = getCookiesFromContext(context);
+      const cookies = getCookiesFromContext(context);
+      headers.Cookie = cookies;
+      headers['X-CSRFToken'] = getCookie('csrftoken', cookies) ?? '';
+    } else {
+      headers['X-CSRFToken'] = getCookie('csrftoken') ?? '';
     }
 
     const url = process.env.NEXT_PUBLIC_API_URL + route;

@@ -32,10 +32,7 @@ export default function Logout({ error }: LogoutProps) {
 }
 
 export const getServerSideProps: GetServerSideProps<LogoutProps> = async (context) => {
-  console.log(context.req.headers.cookie);
   const response = await requestApi('/user/logout', { method: 'GET' }, context);
-
-  console.log(response);
 
   return {
     props: {
