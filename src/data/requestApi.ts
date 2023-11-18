@@ -15,7 +15,7 @@ type RequestOptions = {
   headers?: Headers;
 };
 
-export const requestApi = async <ResponseType extends FetchReponse>(
+export const requestApi = async <ResponseType>(
   route: string,
   options: RequestOptions,
   context?: GetServerSidePropsContext,

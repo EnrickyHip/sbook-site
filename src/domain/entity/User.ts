@@ -13,4 +13,5 @@ export interface User {
   created_at: string;
   updated_at: string;
   pseudo_name: null | string;
+  is_superuser: boolean;
 }
