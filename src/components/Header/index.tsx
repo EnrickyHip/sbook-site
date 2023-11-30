@@ -7,9 +7,16 @@ import { HiOutlineBookOpen } from 'react-icons/hi2';
 import { HeaderContainer, HeaderItem, Logo, Nav, ThemeIcon } from './styled';
 import { Heading } from '../UI/Heading';
 import { SbookDropdown, SbookDropdownItem, SbookDropdownMenu, SbookDropdownToggle } from '../UI/Dropdown';
+import { Loading } from '../UI/Loading';
+import { useSession } from '@/Context/Session';
 
 function Header() {
   const { mode, toggleTheme } = useThemeContext();
+  const { user } = useSession();
+
+  if (!user) {
+    return <Loading />;
+  }
 
   return (
     <HeaderContainer>
@@ -32,7 +39,7 @@ function Header() {
             </Dropdown.Toggle>
 
             <SbookDropdownMenu>
-              <SbookDropdownItem>
+              <SbookDropdownItem href={`/usuario/${user.id}`}>
                 <MdPersonOutline size={25} />
                 Minha Estante Virtual
               </SbookDropdownItem>

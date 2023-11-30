@@ -7,8 +7,8 @@ export const MenuLink = styled(Link)`
     display: flex;
     align-items: center;
     font-weight: 400;
-    gap: 8px;
-    padding: 8px;
+    gap: 6px;
+    padding: 6px;
     text-decoration: none;
     color: ${theme.colors.gray8};
     transition: ease-in-out 0.1s;
@@ -59,7 +59,7 @@ export const TabList = styled.ul`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 20px;
+  gap: 10px;
 `;
 
 export const TabButton = styled.button`

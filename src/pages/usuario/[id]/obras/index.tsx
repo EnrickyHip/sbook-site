@@ -2,15 +2,13 @@ import { requestApi } from '@/data/requestApi';
 import { User } from '@/domain/entity/User';
 import { UserTemplate } from '@/templates/UserTemplate';
 import { GetServerSideProps } from 'next';
-import { UserPageProps } from './lidos';
-import { UserPiecesTemplate } from '@/templates/UserTemplate/UserPiecesTemplate';
+
+export interface UserPageProps {
+  user: User;
+}
 
 export default function UserPage({ user }: UserPageProps) {
-  return (
-    <UserTemplate user={user}>
-      <UserPiecesTemplate user={user} />
-    </UserTemplate>
-  );
+  return <UserTemplate user={user} status={null} />;
 }
 
 export const getServerSideProps: GetServerSideProps<UserPageProps> = async (context) => {

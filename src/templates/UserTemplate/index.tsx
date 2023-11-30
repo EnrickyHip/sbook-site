@@ -10,13 +10,16 @@ import { Divider } from '@/components/UI/Divider';
 import { IoBookOutline } from 'react-icons/io5';
 import { FaRegBookmark } from 'react-icons/fa';
 import { useRouter } from 'next/router';
+import { MdOutlinePause } from 'react-icons/md';
+import { BiBookmarkMinus } from 'react-icons/bi';
+import { UrlStatus } from '@/pages/usuario/[id]/obras/[status]';
 
 interface UserPageProps {
   user: User;
-  children: React.ReactNode;
+  status: UrlStatus | null;
 }
 
-export function UserTemplate({ user, children }: UserPageProps) {
+export function UserTemplate({ user, status }: UserPageProps) {
   const { user: loggedUser } = useSession();
   const router = useRouter();
 
@@ -27,7 +30,6 @@ export function UserTemplate({ user, children }: UserPageProps) {
       : defaultProfileImg;
 
   const [profileSrc, setProfileSrc] = useState(profileImgPath);
-  console.log(router.pathname);
 
   return (
     <Layout>
@@ -48,19 +50,39 @@ export function UserTemplate({ user, children }: UserPageProps) {
             Estante Virtual
           </Heading>
           <TabList>
-            <SbookTabLi active={router.pathname === '/usuario/[id]/obras/lidos'}>
-              <MdOutlineBookmarkAdded size={24} />
-              <MenuLink href={`/usuario/${user.id}/obras/lidos`}>Lidos</MenuLink>
+            <SbookTabLi active={status === 'lidos'}>
+              <MenuLink href={`/usuario/${user.id}/obras/lidos`}>
+                <MdOutlineBookmarkAdded size={24} />
+                Lidos
+              </MenuLink>
             </SbookTabLi>
 
-            <SbookTabLi active={router.pathname === '/usuario/[id]/obras/lendo'}>
-              <IoBookOutline size={25} />
-              <MenuLink href={`/usuario/${user.id}/obras/lendo`}>Lendo</MenuLink>
+            <SbookTabLi active={status === 'lendo'}>
+              <MenuLink href={`/usuario/${user.id}/obras/lendo`}>
+                <IoBookOutline size={25} />
+                Lendo
+              </MenuLink>
             </SbookTabLi>
 
-            <SbookTabLi active={router.pathname === '/usuario/[id]/obras/quero_ler'}>
-              <FaRegBookmark size={20} />
-              <MenuLink href={`/usuario/${user.id}/obras/quero_ler`}>Quero Ler</MenuLink>
+            <SbookTabLi active={status === 'quero_ler'}>
+              <MenuLink href={`/usuario/${user.id}/obras/quero_ler`}>
+                <FaRegBookmark size={20} />
+                Quero Ler
+              </MenuLink>
+            </SbookTabLi>
+
+            <SbookTabLi active={status === 'pausados'}>
+              <MenuLink href={`/usuario/${user.id}/obras/pausados`}>
+                <MdOutlinePause size={25} />
+                Pausados
+              </MenuLink>
+            </SbookTabLi>
+
+            <SbookTabLi active={status === 'abandonados'}>
+              <MenuLink href={`/usuario/${user.id}/obras/abandonados`}>
+                <BiBookmarkMinus size={25} />
+                Abandonados
+              </MenuLink>
             </SbookTabLi>
 
             <SbookTabLi active={router.pathname === '/usuario/[id]/obras'}>
@@ -71,7 +93,7 @@ export function UserTemplate({ user, children }: UserPageProps) {
             </SbookTabLi>
           </TabList>
           <Divider />
-          <div>{children}</div>
+          <div>{status ?? 'minhas obras'}</div>
         </VirtualBookCase>
       </UserContainer>
     </Layout>
