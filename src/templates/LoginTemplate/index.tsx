@@ -85,7 +85,7 @@ export function LoginTemplate() {
                 value={user}
                 onChange={({ target }) => setUser(target.value)}
                 type="text"
-                placeholder="Informe seu CPF ou Matrícula"
+                placeholder="Informe seu username"
               />
             </LoginInputContainer>
 

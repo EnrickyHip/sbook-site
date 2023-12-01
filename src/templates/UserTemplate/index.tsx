@@ -1,5 +1,13 @@
 import { Layout } from '@/components/Layout';
-import { ProfileImage, UserContainer, UserInfo, VirtualBookCase } from './styled';
+import {
+  PiecesContainer,
+  ProfileImage,
+  UserContainer,
+  UserFullName,
+  UserInfo,
+  UserName,
+  VirtualBookCase,
+} from './styled';
 import { useState } from 'react';
 import { Heading } from '@/components/UI/Heading';
 import { MenuLink, SbookTabLi, TabList } from '@/components/UI/NavTab';
@@ -13,13 +21,25 @@ import { useRouter } from 'next/router';
 import { MdOutlinePause } from 'react-icons/md';
 import { BiBookmarkMinus } from 'react-icons/bi';
 import { UrlStatus } from '@/pages/usuario/[id]/obras/[status]';
+import { PieceStatus } from '@/domain/entity/PieceStatus';
+import { ReadPiece } from '@/components/ReadPiece';
+import { WishedPiece } from '@/components/WishedPiece';
 
 interface UserPageProps {
   user: User;
   status: UrlStatus | null;
+  pieceStatuses: PieceStatus[];
 }
 
-export function UserTemplate({ user, status }: UserPageProps) {
+const emptyMessages = {
+  lidos: 'Você não terminou nenhuma obra ainda.',
+  lendo: 'Você não está lendo nada no momento.',
+  quero_ler: 'Você não possui nenhuma leitura desejada',
+  abandonados: 'Você não tem nenhuma obra abandonada.',
+  pausados: 'Você não possui nenhuma obra pausada.',
+} as const;
+
+export function UserTemplate({ user, status, pieceStatuses }: UserPageProps) {
   const { user: loggedUser } = useSession();
   const router = useRouter();
 
@@ -34,7 +54,7 @@ export function UserTemplate({ user, status }: UserPageProps) {
   return (
     <Layout>
       <UserContainer>
-        <aside>
+        <UserInfo>
           <ProfileImage
             height={200}
             width={200}
@@ -42,8 +62,11 @@ export function UserTemplate({ user, status }: UserPageProps) {
             src={profileSrc}
             alt={`Foto de perfil de ${user.first_name}`}
           />
-          <UserInfo></UserInfo>
-        </aside>
+          <UserFullName>
+            {user.first_name} {user.last_name}
+          </UserFullName>
+          <UserName>{user.username}</UserName>
+        </UserInfo>
 
         <VirtualBookCase>
           <Heading size={40} as="h2">
@@ -86,14 +109,22 @@ export function UserTemplate({ user, status }: UserPageProps) {
             </SbookTabLi>
 
             <SbookTabLi active={router.pathname === '/usuario/[id]/obras'}>
-              <MdOutlineHistoryEdu size={26} />
               <MenuLink href={`/usuario/${user.id}/obras`}>
+                <MdOutlineHistoryEdu size={26} />
                 {loggedUser?.id === user.id ? 'Minhas Obras' : 'Obras Escritas'}
               </MenuLink>
             </SbookTabLi>
           </TabList>
           <Divider />
-          <div>{status ?? 'minhas obras'}</div>
+          <PiecesContainer>
+            {pieceStatuses.length === 0 && status && <p>{emptyMessages[status]}</p>}
+            {pieceStatuses.map((pieceStatus) => (
+              <>
+                {status === 'lidos' && <ReadPiece pieceStatus={pieceStatus} />}
+                {status === 'quero_ler' && <WishedPiece pieceStatus={pieceStatus} />}
+              </>
+            ))}
+          </PiecesContainer>
         </VirtualBookCase>
       </UserContainer>
     </Layout>

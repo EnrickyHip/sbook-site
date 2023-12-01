@@ -14,7 +14,7 @@ import { requestApi } from '@/data/requestApi';
 import { useSession } from '@/Context/Session';
 import { Select } from '@/components/UI/Select';
 import { ShowPasswordButton } from '@/components/UI/ShowPasswordButton';
-import { RegisterUserResponse } from '@/domain/responses/RegisterUserResponse';
+import { RegisterUserResponse } from '@/domain/responses/UserResponses';
 
 export function RegisterTemplate() {
   const [passwordHidden, setPasswordHidden] = useState(true);

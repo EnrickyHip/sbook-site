@@ -4,7 +4,7 @@ import { Loading } from './UI/Loading';
 import { useSession } from '@/Context/Session';
 import { requestApi } from '@/data/requestApi';
 import { GenericError } from './GenericError';
-import { CurrentUserResponse } from '@/domain/responses/CurrentUserResponse';
+import { CurrentUserResponse } from '@/domain/responses/UserResponses';
 
 interface SessionLoaderProps {
   children: React.ReactNode;
