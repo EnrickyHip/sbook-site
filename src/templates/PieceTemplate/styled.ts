@@ -25,7 +25,7 @@ export const AvarageRating = styled.div<AvarageRatingProps>`
 
 export const PieceContainer = styled.div`
   display: grid;
-  padding: 80px 150px;
+  padding: 50px 150px;
   grid-template-columns: 2fr 5fr;
 `;
 

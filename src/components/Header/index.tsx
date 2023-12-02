@@ -9,6 +9,7 @@ import { Heading } from '../UI/Heading';
 import { SbookDropdown, SbookDropdownItem, SbookDropdownMenu, SbookDropdownToggle } from '../UI/Dropdown';
 import { Loading } from '../UI/Loading';
 import { useSession } from '@/Context/Session';
+import SearchBar from '../UI/SearchBar';
 
 function Header() {
   const { mode, toggleTheme } = useThemeContext();
@@ -30,6 +31,10 @@ function Header() {
               </Heading>
             </Logo>
           </Link>
+        </HeaderItem>
+
+        <HeaderItem>
+          <SearchBar />
         </HeaderItem>
 
         <HeaderItem>

@@ -14,6 +14,13 @@ import { useState } from 'react';
 import { Heading } from '@/components/UI/Heading';
 import { translatedStatus } from '@/domain/entity/Piece';
 import { SbookRate } from '@/components/UI/SbookRate';
+import { SbookButton } from '@/components/UI/SbookButton';
+import { SbookDropdown, SbookDropdownItem, SbookDropdownMenu } from '@/components/UI/Dropdown';
+import { Dropdown } from 'react-bootstrap';
+import { MdOutlineBookmarkAdded, MdOutlinePause } from 'react-icons/md';
+import { IoBookOutline } from 'react-icons/io5';
+import { FaRegBookmark } from 'react-icons/fa';
+import { BiBookmarkMinus } from 'react-icons/bi';
 
 function getRatingColor(rating: number): string {
   if (rating < 1) return '#df0101';
@@ -57,7 +64,6 @@ export function PieceTemplate({ piece }: PiecePageProps) {
             src={coverSrc}
             alt={`Capa da obra ${piece.name}`}
           />
-
           <PieceInfo>
             <div>Gêneros: {piece.genres.map((genre) => genre.name).join(', ')}</div>
             {piece.pages && (
@@ -80,10 +86,39 @@ export function PieceTemplate({ piece }: PiecePageProps) {
 
           <div className="mb-2">{piece.publisher.name}</div>
 
-          <AvarageRatingContainer>
+          <AvarageRatingContainer className="mb-4">
             <AvarageRating color={getRatingColor(piece.rating)}>{piece.rating.toFixed(1)}</AvarageRating>
             <SbookRate fontSize={30} disabled allowHalf defaultValue={piece.rating} />
           </AvarageRatingContainer>
+
+          <SbookDropdown>
+            <Dropdown.Toggle aria-label="minha conta" as={SbookButton}>
+              Adicionar à Estante
+            </Dropdown.Toggle>
+
+            <SbookDropdownMenu>
+              <SbookDropdownItem>
+                <MdOutlineBookmarkAdded size={20} />
+                Lidos
+              </SbookDropdownItem>
+              <SbookDropdownItem>
+                <IoBookOutline size={20} />
+                Lendo
+              </SbookDropdownItem>
+              <SbookDropdownItem>
+                <FaRegBookmark size={16} />
+                Quero Ler
+              </SbookDropdownItem>
+              <SbookDropdownItem>
+                <MdOutlinePause size={20} />
+                Pausado
+              </SbookDropdownItem>
+              <SbookDropdownItem>
+                <BiBookmarkMinus size={20} />
+                Abandanado
+              </SbookDropdownItem>
+            </SbookDropdownMenu>
+          </SbookDropdown>
 
           <Sinopse>
             <p>{piece.introduction}</p>
