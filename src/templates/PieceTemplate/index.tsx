@@ -1,10 +1,27 @@
 import { Layout } from '@/components/Layout';
 import { PiecePageProps } from '@/pages/obra/[id]';
-import { AuthorContainer, PieceMainInfo, PieceContainer, Sinopse, PieceInfo } from './styled';
+import {
+  AuthorContainer,
+  PieceMainInfo,
+  PieceContainer,
+  Sinopse,
+  PieceInfo,
+  AvarageRatingContainer,
+  AvarageRating,
+} from './styled';
 import Image from 'next/image';
 import { useState } from 'react';
 import { Heading } from '@/components/UI/Heading';
 import { translatedStatus } from '@/domain/entity/Piece';
+import { SbookRate } from '@/components/UI/SbookRate';
+
+function getRatingColor(rating: number): string {
+  if (rating < 1) return '#df0101';
+  if (rating < 2) return '#df6601';
+  if (rating < 3) return '#dfb701';
+  if (rating < 4) return '#99D200';
+  return '#569E00';
+}
 
 export function PieceTemplate({ piece }: PiecePageProps) {
   const defaultCover = process.env.NEXT_PUBLIC_APP_URL + '/images/default_cover.jpg';
@@ -40,6 +57,7 @@ export function PieceTemplate({ piece }: PiecePageProps) {
             src={coverSrc}
             alt={`Capa da obra ${piece.name}`}
           />
+
           <PieceInfo>
             <div>Gêneros: {piece.genres.map((genre) => genre.name).join(', ')}</div>
             {piece.pages && (
@@ -57,8 +75,16 @@ export function PieceTemplate({ piece }: PiecePageProps) {
           <Heading size={40} as="h2">
             {piece.name}
           </Heading>
+
           <AuthorContainer>{authors.join(', ')}</AuthorContainer>
-          <div>{piece.publisher.name}</div>
+
+          <div className="mb-2">{piece.publisher.name}</div>
+
+          <AvarageRatingContainer>
+            <AvarageRating color={getRatingColor(piece.rating)}>{piece.rating.toFixed(1)}</AvarageRating>
+            <SbookRate fontSize={30} disabled allowHalf defaultValue={piece.rating} />
+          </AvarageRatingContainer>
+
           <Sinopse>
             <p>{piece.introduction}</p>
           </Sinopse>

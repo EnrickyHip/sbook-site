@@ -1,6 +1,27 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 // se precisar utilizar estes componentes novamente em algum lugar do sistema criar um componente para isto seria interessante
+
+export const AvarageRatingContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;
+
+interface AvarageRatingProps {
+  color?: string;
+}
+
+export const AvarageRating = styled.div<AvarageRatingProps>`
+  ${({ color }) => css`
+    background-color: ${color};
+  `}
+
+  color: white;
+  font-size: 20px;
+  border-radius: 5px;
+  padding: 10px 12px;
+`;
 
 export const PieceContainer = styled.div`
   display: grid;

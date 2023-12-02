@@ -33,6 +33,7 @@ export const translatedStatus = {
 export interface Piece {
   id: number;
   name: string;
+  rating: number;
   introduction: string;
   created_at: string;
   updated_at: string;
