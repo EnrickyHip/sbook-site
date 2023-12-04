@@ -10,4 +10,5 @@ export interface PieceStatus {
   summary: string | null;
   user: User;
   piece: Piece;
+  last_page: number | null;
 }

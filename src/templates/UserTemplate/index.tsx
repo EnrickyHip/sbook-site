@@ -25,6 +25,7 @@ import { PieceStatus } from '@/domain/entity/PieceStatus';
 import { ReadPiece } from '@/components/ReadPiece';
 import { WishedPiece } from '@/components/WishedPiece';
 import { isSmallScreen } from '@/utils/isSmallScreen';
+import { ReadingPiece } from '@/components/ReadingPiece';
 
 interface UserPageProps {
   user: User;
@@ -123,6 +124,7 @@ export function UserTemplate({ user, status, pieceStatuses }: UserPageProps) {
             {pieceStatuses.map((pieceStatus) => (
               <div key={pieceStatus.id}>
                 {status === 'lidos' && <ReadPiece pieceStatus={pieceStatus} />}
+                {status === 'lendo' && <ReadingPiece pieceStatus={pieceStatus} />}
                 {status === 'quero_ler' && <WishedPiece pieceStatus={pieceStatus} />}
               </div>
             ))}
