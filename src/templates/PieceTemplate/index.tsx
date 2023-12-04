@@ -56,26 +56,19 @@ export function PieceTemplate({ piece }: PiecePageProps) {
   return (
     <Layout>
       <PieceContainer>
-        <aside>
-          <Image
-            height={280}
-            width={195}
-            onError={() => setCoverSrc(defaultCover)}
-            src={coverSrc}
-            alt={`Capa da obra ${piece.name}`}
-          />
-          <PieceInfo>
-            <div>Gêneros: {piece.genres.map((genre) => genre.name).join(', ')}</div>
-            {piece.pages && (
-              <div>
-                {piece.pages} {piece.pages === 1 ? 'Página' : 'Páginas'}
-              </div>
-            )}
-            <div>Status: {translatedStatus[piece.status]}</div>
-            {showDate && <div>Publicação: {formatedDate}</div>}
-            {piece.isbn && <div>ISBN: {piece.isbn}</div>}
-          </PieceInfo>
-        </aside>
+        <Image
+          height={280}
+          width={195}
+          sizes="100vw"
+          style={{
+            maxWidth: '300px',
+            width: '65%',
+            height: 'auto',
+          }}
+          onError={() => setCoverSrc(defaultCover)}
+          src={coverSrc}
+          alt={`Capa da obra ${piece.name}`}
+        />
 
         <PieceMainInfo>
           <Heading size={40} as="h2">
@@ -91,7 +84,7 @@ export function PieceTemplate({ piece }: PiecePageProps) {
             <SbookRate fontSize={30} disabled allowHalf defaultValue={piece.rating} />
           </AvarageRatingContainer>
 
-          <SbookDropdown>
+          <SbookDropdown maxHeight={300}>
             <Dropdown.Toggle aria-label="minha conta" as={SbookButton}>
               Adicionar à Estante
             </Dropdown.Toggle>
@@ -119,11 +112,23 @@ export function PieceTemplate({ piece }: PiecePageProps) {
               </SbookDropdownItem>
             </SbookDropdownMenu>
           </SbookDropdown>
-
-          <Sinopse>
-            <p>{piece.introduction}</p>
-          </Sinopse>
         </PieceMainInfo>
+
+        <PieceInfo>
+          <div>Gêneros: {piece.genres.map((genre) => genre.name).join(', ')}</div>
+          {piece.pages && (
+            <div>
+              {piece.pages} {piece.pages === 1 ? 'Página' : 'Páginas'}
+            </div>
+          )}
+          <div>Status: {translatedStatus[piece.status]}</div>
+          {showDate && <div>Publicação: {formatedDate}</div>}
+          {piece.isbn && <div>ISBN: {piece.isbn}</div>}
+        </PieceInfo>
+
+        <Sinopse>
+          <p>{piece.introduction}</p>
+        </Sinopse>
       </PieceContainer>
     </Layout>
   );

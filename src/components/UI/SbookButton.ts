@@ -39,4 +39,8 @@ export const SbookButton = styled.button<SbookButtonProps>`
   align-items: center;
   gap: 5px;
   font-size: 15px;
+
+  @media (max-width: 800px) {
+    font-size: 18px;
+  }
 `;

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { SearchBarContainer, SearchBarInput } from './styled';
-import { IoMdSearch } from 'react-icons/io';
+import { IoMdSearch, IoMdClose } from 'react-icons/io';
 
-export interface Props {
-  children: React.ReactNode;
+export interface SearchBarProps {
+  closeFunction?: () => void;
 }
 
-function SearchBar() {
+function SearchBar({ closeFunction }: SearchBarProps) {
   const [search, setSearch] = useState('');
 
   return (
@@ -17,7 +17,9 @@ function SearchBar() {
         type="text"
         placeholder="Pesquise aqui..."
       />
-      <IoMdSearch color="black" size={20} />
+
+      {window.innerWidth > 800 && <IoMdSearch color="black" size={20} />}
+      {window.innerWidth <= 800 && <IoMdClose onClick={closeFunction} color="black" size={20} />}
     </SearchBarContainer>
   );
 }

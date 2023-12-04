@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-export const SearchBarContainer = styled.div`
+export const SearchBarContainer = styled.div.attrs({ id: 'search-bar' })`
   ${({ theme }) => css`
     display: flex;
     justify-content: space-between;
@@ -9,6 +9,14 @@ export const SearchBarContainer = styled.div`
     background-color: ${theme.colors.background.secondary};
     padding: 5px 10px;
   `}
+
+  @media (max-width: 800px) {
+    min-width: 100%;
+    height: 42px;
+    border-bottom: 1px solid gray;
+    font-size: 20px;
+    border-radius: 5px;
+  }
 `;
 
 export const SearchBarInput = styled.input`

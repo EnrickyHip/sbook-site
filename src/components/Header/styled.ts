@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { SbookDropdownItem } from '../UI/Dropdown';
 
 export const Nav = styled.nav`
   display: flex;
@@ -33,17 +34,14 @@ export const HeaderItem = styled.div`
   align-items: center;
   gap: 20px;
 
+  @media (max-width: 800px) {
+    gap: 10px;
+  }
+
   a:hover {
     color: ${({ theme }) => theme.colors.text.colorHover};
     transition: 0.2s ease-in-out;
   }
-`;
-
-export const Version = styled.span`
-  border: 2px solid white;
-  border-radius: 5px;
-  padding: 5px;
-  font-weight: 600;
 `;
 
 export const ThemeIcon = styled.div`
@@ -72,8 +70,24 @@ export const HeaderContainer = styled.header`
   left: 0;
   height: 62px;
 
+  .search-icon {
+    display: none;
+  }
+
   a {
     text-decoration: none;
     color: white;
+  }
+
+  @media (max-width: 800px) {
+    padding: 10px;
+
+    ${SbookDropdownItem} {
+      font-size: 20px;
+    }
+
+    .search-icon {
+      display: flex;
+    }
   }
 `;

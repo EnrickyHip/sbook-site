@@ -1,11 +1,17 @@
+import { SbookDropdownItem } from '@/components/UI/Dropdown';
+import { StyledHeading } from '@/components/UI/Heading/styled';
 import styled, { css } from 'styled-components';
-
-// se precisar utilizar estes componentes novamente em algum lugar do sistema criar um componente para isto seria interessante
 
 export const AvarageRatingContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
+
+  @media (max-width: 800px) {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+  }
 `;
 
 interface AvarageRatingProps {
@@ -27,20 +33,63 @@ export const PieceContainer = styled.div`
   display: grid;
   padding: 50px 150px;
   grid-template-columns: 2fr 5fr;
+
+  @media (max-width: 1200px) {
+    padding: 40px 80px;
+  }
+
+  @media (max-width: 900px) {
+    padding: 40px 30px;
+  }
+
+  @media (max-width: 800px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    ${StyledHeading} {
+      margin-top: 20px;
+      font-size: 30px;
+      text-align: center;
+    }
+
+    ${SbookDropdownItem} {
+      font-size: 20px;
+    }
+  }
 `;
 
 export const PieceMainInfo = styled.div`
-  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  @media (max-width: 800px) {
+    align-items: center;
+  }
 `;
 
 export const AuthorContainer = styled.div`
   font-size: 25px;
+
+  @media (max-width: 800px) {
+    font-size: 18px;
+  }
 `;
 
 export const PieceInfo = styled.div`
   margin: 20px 0;
+
+  @media (max-width: 800px) {
+    text-align: center;
+  }
 `;
 
 export const Sinopse = styled.article`
   margin-top: 30px;
+  text-align: justify;
+
+  @media (max-width: 800px) {
+    font-size: 18px;
+  }
 `;
