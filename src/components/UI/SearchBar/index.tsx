@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { SearchBarContainer, SearchBarInput } from './styled';
 import { IoMdSearch, IoMdClose } from 'react-icons/io';
+import { isSmallScreen } from '@/utils/isSmallScreen';
 
 export interface SearchBarProps {
   closeFunction?: () => void;
@@ -18,8 +19,8 @@ function SearchBar({ closeFunction }: SearchBarProps) {
         placeholder="Pesquise aqui..."
       />
 
-      {window.innerWidth > 800 && <IoMdSearch color="black" size={20} />}
-      {window.innerWidth <= 800 && <IoMdClose onClick={closeFunction} color="black" size={20} />}
+      {!isSmallScreen() && <IoMdSearch color="black" size={20} />}
+      {isSmallScreen() && <IoMdClose onClick={closeFunction} color="black" size={20} />}
     </SearchBarContainer>
   );
 }

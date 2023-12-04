@@ -23,8 +23,8 @@ export const ReadPiece = ({ pieceStatus }: ReadPieceInterface) => {
       <Link href={`/obra/${pieceStatus.piece.id}`}>
         <Image
           title={pieceStatus.piece.name}
-          height={145}
-          width={100}
+          height={140}
+          width={98}
           onError={() => setCoverSrc(defaultCover)}
           src={coverSrc}
           alt={`Capa da obra ${pieceStatus.piece.name}`}

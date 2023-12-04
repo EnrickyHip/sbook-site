@@ -24,6 +24,7 @@ import { UrlStatus } from '@/pages/usuario/[id]/obras/[status]';
 import { PieceStatus } from '@/domain/entity/PieceStatus';
 import { ReadPiece } from '@/components/ReadPiece';
 import { WishedPiece } from '@/components/WishedPiece';
+import { isSmallScreen } from '@/utils/isSmallScreen';
 
 interface UserPageProps {
   user: User;
@@ -72,45 +73,46 @@ export function UserTemplate({ user, status, pieceStatuses }: UserPageProps) {
           <Heading size={40} as="h2">
             Estante Virtual
           </Heading>
+
           <TabList>
             <SbookTabLi active={status === 'lidos'}>
               <MenuLink href={`/usuario/${user.id}/obras/lidos`}>
-                <MdOutlineBookmarkAdded size={24} />
+                <MdOutlineBookmarkAdded size={isSmallScreen() ? 20 : 24} />
                 Lidos
               </MenuLink>
             </SbookTabLi>
 
             <SbookTabLi active={status === 'lendo'}>
               <MenuLink href={`/usuario/${user.id}/obras/lendo`}>
-                <IoBookOutline size={25} />
+                <IoBookOutline size={isSmallScreen() ? 20 : 25} />
                 Lendo
               </MenuLink>
             </SbookTabLi>
 
             <SbookTabLi active={status === 'quero_ler'}>
               <MenuLink href={`/usuario/${user.id}/obras/quero_ler`}>
-                <FaRegBookmark size={20} />
+                <FaRegBookmark size={isSmallScreen() ? 16 : 24} />
                 Quero Ler
               </MenuLink>
             </SbookTabLi>
 
             <SbookTabLi active={status === 'pausados'}>
               <MenuLink href={`/usuario/${user.id}/obras/pausados`}>
-                <MdOutlinePause size={25} />
+                <MdOutlinePause size={isSmallScreen() ? 20 : 25} />
                 Pausados
               </MenuLink>
             </SbookTabLi>
 
             <SbookTabLi active={status === 'abandonados'}>
               <MenuLink href={`/usuario/${user.id}/obras/abandonados`}>
-                <BiBookmarkMinus size={25} />
+                <BiBookmarkMinus size={isSmallScreen() ? 20 : 25} />
                 Abandonados
               </MenuLink>
             </SbookTabLi>
 
             <SbookTabLi active={router.pathname === '/usuario/[id]/obras'}>
               <MenuLink href={`/usuario/${user.id}/obras`}>
-                <MdOutlineHistoryEdu size={26} />
+                <MdOutlineHistoryEdu size={isSmallScreen() ? 20 : 26} />
                 {loggedUser?.id === user.id ? 'Minhas Obras' : 'Obras Escritas'}
               </MenuLink>
             </SbookTabLi>
@@ -119,10 +121,10 @@ export function UserTemplate({ user, status, pieceStatuses }: UserPageProps) {
           <PiecesContainer>
             {pieceStatuses.length === 0 && status && <p>{emptyMessages[status]}</p>}
             {pieceStatuses.map((pieceStatus) => (
-              <>
+              <div key={pieceStatus.id}>
                 {status === 'lidos' && <ReadPiece pieceStatus={pieceStatus} />}
                 {status === 'quero_ler' && <WishedPiece pieceStatus={pieceStatus} />}
-              </>
+              </div>
             ))}
           </PiecesContainer>
         </VirtualBookCase>

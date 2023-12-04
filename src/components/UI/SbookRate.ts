@@ -13,7 +13,7 @@ export const SbookRate = styled(Rate)<SbookRateInterface>`
     `}
   `}
 
-  color: #FFCD3C;
+  color: #FFBB3C;
 
   li {
     margin: 1px !important;

@@ -6,7 +6,7 @@ export const SearchBarContainer = styled.div.attrs({ id: 'search-bar' })`
     justify-content: space-between;
     align-items: center;
     min-width: 400px;
-    background-color: ${theme.colors.background.secondary};
+    background-color: ${theme.colors.gray0};
     padding: 5px 10px;
   `}
 
@@ -21,7 +21,7 @@ export const SearchBarContainer = styled.div.attrs({ id: 'search-bar' })`
 
 export const SearchBarInput = styled.input`
   ${({ theme }) => css`
-    background-color: ${theme.colors.background.secondary};
+    background-color: ${theme.colors.gray0};
   `}
 
   flex-grow: 1;

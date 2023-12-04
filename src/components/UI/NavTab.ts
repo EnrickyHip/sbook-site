@@ -31,6 +31,7 @@ export const SbookTabLi = styled.li<SbookMenuLiProps>`
   display: flex;
   align-items: center;
   font-size: 17px;
+  white-space: nowrap;
 
   ${({ theme, active }) => css`
     ${active &&
@@ -51,15 +52,23 @@ export const SbookTabLi = styled.li<SbookMenuLiProps>`
       }
     `}
   `};
+
+  @media (max-width: 800px) {
+    font-size: 15px;
+  }
 `;
 
-export const TabList = styled.ul`
+export const TabList = styled.div`
   margin: 0;
   padding: 0;
   display: flex;
   align-items: center;
   justify-content: flex-start;
   gap: 10px;
+
+  @media (max-width: 800px) {
+    overflow: auto;
+  }
 `;
 
 export const TabButton = styled.button`

@@ -1,3 +1,4 @@
+import { StyledHeading } from '@/components/UI/Heading/styled';
 import Image from 'next/image';
 import styled from 'styled-components';
 
@@ -7,6 +8,12 @@ export const UserContainer = styled.div`
   display: grid;
   padding: 80px 150px;
   grid-template-columns: 2fr 5fr;
+
+  @media (max-width: 800px) {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+  }
 `;
 
 export const VirtualBookCase = styled.div`
@@ -15,8 +22,14 @@ export const VirtualBookCase = styled.div`
 
   flex-direction: column;
 
-  h2 {
+  ${StyledHeading} {
     margin-bottom: 20px;
+  }
+
+  @media (max-width: 800px) {
+    ${StyledHeading} {
+      text-align: center;
+    }
   }
 `;
 
@@ -31,6 +44,14 @@ export const PiecesContainer = styled.div`
   flex-wrap: wrap;
   padding: 20px;
   gap: 25px;
+
+  @media (max-width: 800px) {
+    padding: 25px 10px;
+    gap: 15px;
+  }
+
+  @media (max-width: 600px) {
+  }
 `;
 
 export const UserFullName = styled.div`

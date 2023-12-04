@@ -32,6 +32,14 @@ export const FormContainer = styled.main`
 
 export const LoginForm = styled.form`
   width: 30vw;
+
+  @media (max-width: 1100px) {
+    width: 50vw;
+  }
+
+  @media (max-width: 600px) {
+    width: 80vw;
+  }
 `;
 
 export const LoginInputContainer = styled.div`
