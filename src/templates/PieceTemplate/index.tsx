@@ -21,6 +21,8 @@ import { MdOutlineBookmarkAdded, MdOutlinePause } from 'react-icons/md';
 import { IoBookOutline } from 'react-icons/io5';
 import { FaRegBookmark } from 'react-icons/fa';
 import { BiBookmarkMinus } from 'react-icons/bi';
+import { FaCheck } from 'react-icons/fa6';
+import { PieceStatus } from '@/domain/entity/PieceStatus';
 
 function getRatingColor(rating: number): string {
   if (rating < 1) return '#df0101';
@@ -30,7 +32,15 @@ function getRatingColor(rating: number): string {
   return '#569E00';
 }
 
-export function PieceTemplate({ piece }: PiecePageProps) {
+function getButtonColor(pieceStatus: PieceStatus): string {
+  if (pieceStatus.status === 'finished') return '#509100';
+  if (pieceStatus.status === 'in_progress') return '#1a849c';
+  if (pieceStatus.status === 'hoping_to_start') return '#d1b61d';
+  if (pieceStatus.status === 'abandoned') return '#575757';
+  return '#d73f3f';
+}
+
+export function PieceTemplate({ piece, pieceStatus }: PiecePageProps) {
   const defaultCover = process.env.NEXT_PUBLIC_APP_URL + '/images/default_cover.jpg';
   const coverImgPath =
     process.env.NEXT_PUBLIC_API_URL && piece.cover_picture
@@ -85,31 +95,77 @@ export function PieceTemplate({ piece }: PiecePageProps) {
           </AvarageRatingContainer>
 
           <SbookDropdown maxHeight={300}>
-            <Dropdown.Toggle aria-label="minha conta" as={SbookButton}>
-              Adicionar à Estante
+            <Dropdown.Toggle
+              style={{ backgroundColor: pieceStatus ? getButtonColor(pieceStatus) : '' }}
+              aria-label="minha conta"
+              as={SbookButton}
+            >
+              {!pieceStatus && 'Adicionar à Estante'}
+
+              {pieceStatus?.status === 'finished' && (
+                <>
+                  Lido
+                  <FaCheck />
+                </>
+              )}
+
+              {pieceStatus?.status === 'in_progress' && (
+                <>
+                  Lendo
+                  <IoBookOutline size={20} />
+                </>
+              )}
+
+              {pieceStatus?.status === 'hoping_to_start' && (
+                <>
+                  Quero Ler
+                  <FaRegBookmark size={16} />
+                </>
+              )}
+
+              {pieceStatus?.status === 'abandoned' && (
+                <>
+                  Quero Ler
+                  <BiBookmarkMinus size={20} />
+                </>
+              )}
             </Dropdown.Toggle>
 
             <SbookDropdownMenu>
-              <SbookDropdownItem>
-                <MdOutlineBookmarkAdded size={20} />
-                Lidos
-              </SbookDropdownItem>
-              <SbookDropdownItem>
-                <IoBookOutline size={20} />
-                Lendo
-              </SbookDropdownItem>
-              <SbookDropdownItem>
-                <FaRegBookmark size={16} />
-                Quero Ler
-              </SbookDropdownItem>
-              <SbookDropdownItem>
-                <MdOutlinePause size={20} />
-                Pausado
-              </SbookDropdownItem>
-              <SbookDropdownItem>
-                <BiBookmarkMinus size={20} />
-                Abandanado
-              </SbookDropdownItem>
+              {pieceStatus?.status !== 'finished' && (
+                <SbookDropdownItem>
+                  <MdOutlineBookmarkAdded size={20} />
+                  Lido
+                </SbookDropdownItem>
+              )}
+
+              {pieceStatus?.status !== 'in_progress' && (
+                <SbookDropdownItem>
+                  <IoBookOutline size={20} />
+                  Lendo
+                </SbookDropdownItem>
+              )}
+
+              {pieceStatus?.status !== 'hoping_to_start' && (
+                <SbookDropdownItem>
+                  <FaRegBookmark size={16} />
+                  Quero Ler
+                </SbookDropdownItem>
+              )}
+
+              {pieceStatus?.status !== 'paused' && (
+                <SbookDropdownItem>
+                  <MdOutlinePause size={20} />
+                  Pausado
+                </SbookDropdownItem>
+              )}
+
+              {pieceStatus?.status !== 'abandoned' && (
+                <SbookDropdownItem>
+                  <BiBookmarkMinus size={20} />
+                  Abandanado
+                </SbookDropdownItem>
+              )}
             </SbookDropdownMenu>
           </SbookDropdown>
         </PieceMainInfo>

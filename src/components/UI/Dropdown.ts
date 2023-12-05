@@ -60,10 +60,11 @@ export const SbookDropdownItem = styled(Dropdown.Item)`
     &:hover {
       color: ${theme.colors.text.primary};
       transition: ease-in-out 0.1s;
+      background-color: rgba(100, 38, 120, 0.15) !important;
     }
 
     &:active {
-      background-color: rgba(100, 38, 120, 0.15);
+      background-color: rgba(100, 38, 120, 0.3) !important;
     }
   `}
 
