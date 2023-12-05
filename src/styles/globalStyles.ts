@@ -10,6 +10,7 @@ export const GlobalStyles = createGlobalStyle`
     scroll-behavior: smooth;
   }
 
+
   body {
     background-color: ${({ theme }) => theme.colors.background.secondary};
     transition: background-color 0.2s ease-in-out;

@@ -8,6 +8,7 @@ import {
   PieceInfo,
   AvarageRatingContainer,
   AvarageRating,
+  PieceOptions,
 } from './styled';
 import Image from 'next/image';
 import { Heading } from '@/components/UI/Heading';
@@ -28,6 +29,7 @@ import { Loading } from '@/components/UI/Loading';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { IoMdClose } from 'react-icons/io';
+import RatingModal from '@/components/Modal/RatingModal';
 
 function getRatingColor(rating: number): string {
   if (rating < 1) return '#df0101';
@@ -126,6 +128,7 @@ export function PieceTemplate({ piece, pieceStatus }: PiecePageProps) {
     }
   };
 
+  console.log(pieceStatus?.rating);
   return (
     <Layout>
       <PieceContainer>
@@ -154,97 +157,100 @@ export function PieceTemplate({ piece, pieceStatus }: PiecePageProps) {
 
           <AvarageRatingContainer className="mb-4">
             <AvarageRating color={getRatingColor(piece.rating)}>{piece.rating.toFixed(1)}</AvarageRating>
-            <SbookRate fontSize={30} disabled allowHalf defaultValue={piece.rating} />
+            <SbookRate fontSize={30} disabled allowHalf value={piece.rating} />
           </AvarageRatingContainer>
 
-          <SbookDropdown maxHeight={300}>
-            <Dropdown.Toggle
-              style={{ backgroundColor: pieceStatus ? getButtonColor(pieceStatus) : '' }}
-              aria-label="minha conta"
-              as={SbookButton}
-            >
-              {!pieceStatus && 'Adicionar à Estante'}
+          <PieceOptions>
+            <SbookDropdown maxHeight={300}>
+              <Dropdown.Toggle
+                style={{ backgroundColor: pieceStatus ? getButtonColor(pieceStatus) : '' }}
+                aria-label="minha conta"
+                as={SbookButton}
+              >
+                {!pieceStatus && 'Adicionar à Estante'}
 
-              {pieceStatus?.status === 'finished' && (
-                <>
-                  Lido
-                  <FaCheck />
-                </>
-              )}
+                {pieceStatus?.status === 'finished' && (
+                  <>
+                    Lido
+                    <FaCheck />
+                  </>
+                )}
 
-              {pieceStatus?.status === 'in_progress' && (
-                <>
-                  Lendo
-                  <IoBookOutline size={20} />
-                </>
-              )}
+                {pieceStatus?.status === 'in_progress' && (
+                  <>
+                    Lendo
+                    <IoBookOutline size={20} />
+                  </>
+                )}
 
-              {pieceStatus?.status === 'hoping_to_start' && (
-                <>
-                  Quero Ler
-                  <FaRegBookmark size={16} />
-                </>
-              )}
+                {pieceStatus?.status === 'hoping_to_start' && (
+                  <>
+                    Quero Ler
+                    <FaRegBookmark size={16} />
+                  </>
+                )}
 
-              {pieceStatus?.status === 'abandoned' && (
-                <>
-                  Abandonado
-                  <BiBookmarkMinus size={20} />
-                </>
-              )}
+                {pieceStatus?.status === 'abandoned' && (
+                  <>
+                    Abandonado
+                    <BiBookmarkMinus size={20} />
+                  </>
+                )}
 
-              {pieceStatus?.status === 'paused' && (
-                <>
-                  Pausado
-                  <MdOutlinePause size={20} />
-                </>
-              )}
-            </Dropdown.Toggle>
+                {pieceStatus?.status === 'paused' && (
+                  <>
+                    Pausado
+                    <MdOutlinePause size={20} />
+                  </>
+                )}
+              </Dropdown.Toggle>
 
-            <SbookDropdownMenu>
-              {pieceStatus?.status !== 'finished' && (
-                <SbookDropdownItem onClick={() => changeStatus('finished')}>
-                  <MdOutlineBookmarkAdded size={20} />
-                  Lido
-                </SbookDropdownItem>
-              )}
+              <SbookDropdownMenu>
+                {pieceStatus?.status !== 'finished' && (
+                  <SbookDropdownItem onClick={() => changeStatus('finished')}>
+                    <MdOutlineBookmarkAdded size={20} />
+                    Lido
+                  </SbookDropdownItem>
+                )}
 
-              {pieceStatus?.status !== 'in_progress' && (
-                <SbookDropdownItem onClick={() => changeStatus('in_progress')}>
-                  <IoBookOutline size={20} />
-                  Lendo
-                </SbookDropdownItem>
-              )}
+                {pieceStatus?.status !== 'in_progress' && (
+                  <SbookDropdownItem onClick={() => changeStatus('in_progress')}>
+                    <IoBookOutline size={20} />
+                    Lendo
+                  </SbookDropdownItem>
+                )}
 
-              {pieceStatus?.status !== 'hoping_to_start' && (
-                <SbookDropdownItem onClick={() => changeStatus('hoping_to_start')}>
-                  <FaRegBookmark size={16} />
-                  Quero Ler
-                </SbookDropdownItem>
-              )}
+                {pieceStatus?.status !== 'hoping_to_start' && (
+                  <SbookDropdownItem onClick={() => changeStatus('hoping_to_start')}>
+                    <FaRegBookmark size={16} />
+                    Quero Ler
+                  </SbookDropdownItem>
+                )}
 
-              {pieceStatus?.status !== 'paused' && (
-                <SbookDropdownItem onClick={() => changeStatus('paused')}>
-                  <MdOutlinePause size={20} />
-                  Pausado
-                </SbookDropdownItem>
-              )}
+                {pieceStatus?.status !== 'paused' && (
+                  <SbookDropdownItem onClick={() => changeStatus('paused')}>
+                    <MdOutlinePause size={20} />
+                    Pausado
+                  </SbookDropdownItem>
+                )}
 
-              {pieceStatus?.status !== 'abandoned' && (
-                <SbookDropdownItem onClick={() => changeStatus('abandoned')}>
-                  <BiBookmarkMinus size={20} />
-                  Abandanado
-                </SbookDropdownItem>
-              )}
+                {pieceStatus?.status !== 'abandoned' && (
+                  <SbookDropdownItem onClick={() => changeStatus('abandoned')}>
+                    <BiBookmarkMinus size={20} />
+                    Abandanado
+                  </SbookDropdownItem>
+                )}
 
-              {pieceStatus && (
-                <SbookDropdownItem onClick={() => changeStatus(null)}>
-                  <IoMdClose size={20} />
-                  Remover da Estante
-                </SbookDropdownItem>
-              )}
-            </SbookDropdownMenu>
-          </SbookDropdown>
+                {pieceStatus && (
+                  <SbookDropdownItem onClick={() => changeStatus(null)}>
+                    <IoMdClose size={20} />
+                    Remover da Estante
+                  </SbookDropdownItem>
+                )}
+              </SbookDropdownMenu>
+            </SbookDropdown>
+            {pieceStatus && pieceStatus?.status === 'finished' && <RatingModal pieceStatus={pieceStatus} />}
+          </PieceOptions>
         </PieceMainInfo>
 
         <PieceInfo>

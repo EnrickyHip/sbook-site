@@ -59,6 +59,11 @@ export const PieceContainer = styled.div`
   }
 `;
 
+export const PieceOptions = styled.div`
+  display: flex;
+  gap: 10px;
+`;
+
 export const PieceMainInfo = styled.div`
   display: flex;
   flex-direction: column;
