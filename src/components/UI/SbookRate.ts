@@ -6,14 +6,18 @@ interface SbookRateInterface {
 }
 
 export const SbookRate = styled(Rate)<SbookRateInterface>`
-  ${({ fontSize }) => css`
+  ${({ fontSize, theme }) => css`
     ${fontSize &&
     css`
       font-size: ${fontSize}px;
+
+      .ant-rate-star-second {
+        color: ${theme.colors.gray4};
+      }
     `}
   `}
 
-  color: #FFBB3C;
+  color: #ffbb3c;
 
   li {
     margin: 1px !important;

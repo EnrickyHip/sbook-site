@@ -112,7 +112,7 @@ export function UserTemplate({ user, status, pieceStatuses }: UserPageProps) {
             </SbookTabLi>
 
             <SbookTabLi active={router.pathname === '/usuario/[id]/obras'}>
-              <MenuLink href={`/usuario/${user.id}/obras`}>
+              <MenuLink href="#">
                 <MdOutlineHistoryEdu size={isSmallScreen() ? 20 : 26} />
                 {loggedUser?.id === user.id ? 'Minhas Obras' : 'Obras Escritas'}
               </MenuLink>
@@ -126,6 +126,8 @@ export function UserTemplate({ user, status, pieceStatuses }: UserPageProps) {
                 {status === 'lidos' && <ReadPiece pieceStatus={pieceStatus} />}
                 {status === 'lendo' && <ReadingPiece pieceStatus={pieceStatus} />}
                 {status === 'quero_ler' && <WishedPiece pieceStatus={pieceStatus} />}
+                {status === 'pausados' && <ReadingPiece pieceStatus={pieceStatus} />}
+                {status === 'abandonados' && <WishedPiece pieceStatus={pieceStatus} />}
               </div>
             ))}
           </PiecesContainer>
