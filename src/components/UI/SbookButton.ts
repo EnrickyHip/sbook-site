@@ -30,6 +30,12 @@ export const SbookButton = styled.button<SbookButtonProps>`
     ${light ? lightStyle(theme) : normalStyle(theme)}
     border-radius: ${theme.borderRadius};
     transition: ease-in-out 0.1s;
+
+    &:disabled {
+      pointer-events: none;
+      color: ${theme.colors.gray1};
+      background-color: ${theme.colors.background.primaryLighter};
+    }
   `}
 
   padding: 7px 15px;

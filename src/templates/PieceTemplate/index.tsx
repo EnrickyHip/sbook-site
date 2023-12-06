@@ -30,6 +30,7 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { IoMdClose } from 'react-icons/io';
 import RatingModal from '@/components/Modal/RatingModal';
+import PieceAnnotationModal from '@/components/Modal/PieceAnnotationModal';
 
 function getRatingColor(rating: number): string {
   if (rating < 1) return '#df0101';
@@ -250,6 +251,9 @@ export function PieceTemplate({ piece, pieceStatus }: PiecePageProps) {
               </SbookDropdownMenu>
             </SbookDropdown>
             {pieceStatus && pieceStatus?.status === 'finished' && <RatingModal pieceStatus={pieceStatus} />}
+            {pieceStatus && (pieceStatus?.status === 'in_progress' || pieceStatus?.status === 'finished') && (
+              <PieceAnnotationModal pieceStatus={pieceStatus} />
+            )}
           </PieceOptions>
         </PieceMainInfo>
 

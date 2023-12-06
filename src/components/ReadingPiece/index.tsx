@@ -35,7 +35,7 @@ export const ReadingPiece = ({ pieceStatus }: ReadingPieceInterface) => {
           alt={`Capa da obra ${pieceStatus.piece.name}`}
         />
       </Link>
-      <PieceProgress strength={percentage} max={100} value={percentage} />
+      <PieceProgress height={4} strength={percentage} max={100} value={percentage} />
       <div>
         {lastPage}/{piecePages}
       </div>

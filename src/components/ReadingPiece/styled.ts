@@ -14,6 +14,7 @@ const getValueColor = (strength: number): string => {
 
 interface PieceProgressProps {
   strength: number;
+  height: number;
 }
 
 export const PieceProgress = styled.progress<PieceProgressProps>`
@@ -21,11 +22,11 @@ export const PieceProgress = styled.progress<PieceProgressProps>`
   border: none;
   appearance: none;
   width: 100%;
-  height: 4px;
   margin-top: 8px;
 
   &::-webkit-progress-bar {
-    ${({ theme }) => css`
+    ${({ theme, height }) => css`
+      height: ${height.toString()}px;
       background-color: ${theme.colors.gray3};
     `}
     border-radius: 2px;
