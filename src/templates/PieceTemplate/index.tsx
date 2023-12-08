@@ -27,7 +27,7 @@ import { requestApi } from '@/data/requestApi';
 import { useSession } from '@/Context/Session';
 import { Loading } from '@/components/UI/Loading';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { IoMdClose } from 'react-icons/io';
 import RatingModal from '@/components/Modal/RatingModal';
 import PieceAnnotationModal from '@/components/Modal/PieceAnnotationModal';
@@ -50,14 +50,19 @@ function getButtonColor(pieceStatus: PieceStatus): string {
 
 export function PieceTemplate({ piece, pieceStatus }: PiecePageProps) {
   const defaultCover = process.env.NEXT_PUBLIC_APP_URL + '/images/default_cover.jpg';
-  const coverImgPath =
-    process.env.NEXT_PUBLIC_API_URL && piece.cover_picture
-      ? process.env.NEXT_PUBLIC_API_URL + piece.cover_picture
-      : defaultCover;
 
   const { user } = useSession();
   const router = useRouter();
-  const [coverSrc, setCoverSrc] = useState(coverImgPath);
+  const [coverSrc, setCoverSrc] = useState(defaultCover);
+
+  useEffect(() => {
+    const coverImgPath =
+      process.env.NEXT_PUBLIC_API_URL && piece.cover_picture
+        ? process.env.NEXT_PUBLIC_API_URL + piece.cover_picture
+        : defaultCover;
+
+    setCoverSrc(coverImgPath);
+  }, [piece]);
 
   if (!user) {
     return <Loading />;
@@ -129,7 +134,6 @@ export function PieceTemplate({ piece, pieceStatus }: PiecePageProps) {
     }
   };
 
-  console.log(pieceStatus?.rating);
   return (
     <Layout>
       <PieceContainer>

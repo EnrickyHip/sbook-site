@@ -63,11 +63,11 @@ export const HeaderContainer = styled.header`
   padding: 10px 30px;
   position: fixed;
   width: 100%;
-  z-index: 2;
   color: white;
   top: 0;
   right: 0;
   left: 0;
+  z-index: 1000;
   height: 62px;
 
   .search-icon {

@@ -28,6 +28,8 @@ interface SkoobDropdownProps {
 }
 
 export const SbookDropdown = styled(Dropdown)<SkoobDropdownProps>`
+  position: static;
+
   &.show ${SbookDropdownMenu} {
     ${({ maxHeight = 200 }) => css`
       max-height: ${maxHeight}px;
@@ -36,6 +38,7 @@ export const SbookDropdown = styled(Dropdown)<SkoobDropdownProps>`
         opacity 0.2s,
         visibility 0s;
     `}
+
     display: block;
     opacity: 1;
     visibility: visible;

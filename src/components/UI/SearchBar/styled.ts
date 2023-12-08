@@ -1,6 +1,29 @@
 import styled, { css } from 'styled-components';
 
-export const SearchBarContainer = styled.div.attrs({ id: 'search-bar' })`
+export const ModalContainer = styled.div`
+  position: fixed;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  min-width: 400px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  color: black;
+`;
+
+export const ModalBackdrop = styled.div`
+  position: fixed;
+  top: 62px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 999; /* Valor maior que o z-index do ModalContainer */
+`;
+
+export const SearchBarContainer = styled.div`
   ${({ theme }) => css`
     display: flex;
     justify-content: space-between;
