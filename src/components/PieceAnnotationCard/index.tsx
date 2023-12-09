@@ -44,7 +44,7 @@ export default function PieceAnnotationCard({ pieceAnnotation }: RatingModalProp
           <PieceProgress height={6} strength={percentage} max={100} value={percentage} />
           <AnnotationStats>
             <span>{date}</span>
-            <span>{percentage}%</span>
+            <span>{percentage.toFixed(1)}%</span>
             <span>
               {lastPage}/{piecePages}
             </span>
