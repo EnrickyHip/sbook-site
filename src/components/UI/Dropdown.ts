@@ -23,11 +23,11 @@ export const SbookDropdownMenu = styled(Dropdown.Menu)`
   visibility: hidden;
 `;
 
-interface SkoobDropdownProps {
+interface SbookDropdownProps {
   maxHeight?: number;
 }
 
-export const SbookDropdown = styled(Dropdown)<SkoobDropdownProps>`
+export const SbookDropdown = styled(Dropdown)<SbookDropdownProps>`
   position: static;
 
   &.show ${SbookDropdownMenu} {

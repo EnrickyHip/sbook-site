@@ -8,7 +8,7 @@ import {
   UserName,
   VirtualBookCase,
 } from './styled';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Heading } from '@/components/UI/Heading';
 import { MenuLink, SbookTabLi, TabList } from '@/components/UI/NavTab';
 import { MdOutlineBookmarkAdded, MdOutlineHistoryEdu } from 'react-icons/md';
@@ -46,12 +46,17 @@ export function UserTemplate({ user, status, pieceStatuses }: UserPageProps) {
   const router = useRouter();
 
   const defaultProfileImg = process.env.NEXT_PUBLIC_APP_URL + '/images/default_profile.png';
-  const profileImgPath =
-    process.env.NEXT_PUBLIC_API_URL && user.profile_picture
-      ? process.env.NEXT_PUBLIC_API_URL + user.profile_picture
-      : defaultProfileImg;
 
-  const [profileSrc, setProfileSrc] = useState(profileImgPath);
+  const [profileSrc, setProfileSrc] = useState(defaultProfileImg);
+
+  useEffect(() => {
+    const profileImgPath =
+      process.env.NEXT_PUBLIC_API_URL && user.profile_picture
+        ? process.env.NEXT_PUBLIC_API_URL + user.profile_picture
+        : defaultProfileImg;
+
+    setProfileSrc(profileImgPath);
+  }, [user]);
 
   return (
     <Layout>
@@ -60,7 +65,7 @@ export function UserTemplate({ user, status, pieceStatuses }: UserPageProps) {
           <ProfileImage
             height={200}
             width={200}
-            onError={() => setProfileSrc(profileImgPath)}
+            onError={() => setProfileSrc(profileSrc)}
             src={profileSrc}
             alt={`Foto de perfil de ${user.first_name}`}
           />

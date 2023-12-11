@@ -11,6 +11,8 @@ export const ModalContainer = styled.div`
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   z-index: 1000;
   color: black;
+  max-height: 430px;
+  overflow-y: auto;
 `;
 
 export const ModalBackdrop = styled.div`

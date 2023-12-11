@@ -4,14 +4,13 @@ import { Piece } from '@/domain/entity/Piece';
 import Image from 'next/image';
 import { AvarageRatingContainer } from '@/templates/PieceTemplate/styled';
 import { SbookRate } from '../UI/SbookRate';
-import Link from 'next/link';
 
 interface PieceResultCardProps {
   piece: Piece;
 }
 
 export default function PieceResultCard({ piece }: PieceResultCardProps) {
-  const defaultCover = process.env.NEXT_PUBLIC_APP_URL + '/images/default_profile.png';
+  const defaultCover = process.env.NEXT_PUBLIC_APP_URL + '/images/default_cover.jpg';
   const CoverPath =
     process.env.NEXT_PUBLIC_API_URL && piece.cover_picture
       ? process.env.NEXT_PUBLIC_API_URL + piece.cover_picture
